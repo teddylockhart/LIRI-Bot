@@ -1,4 +1,4 @@
-console.log('this is loaded');
+console.log('\n');
 
 var keys = {
     twitterKeys : {
@@ -11,7 +11,8 @@ var keys = {
     spotifyKeys : {
         id: '151a01ce313847c5b665a49a0999536d',
         secret: '2c546bc956b84064baabb4d5294dbcb4'
-    }
+    },
+
 }
 
 module.exports = keys;

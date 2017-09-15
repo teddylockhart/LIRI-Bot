@@ -37,15 +37,46 @@ var spotify = new Spotify({
 if (process.argv[2] === 'spotify-this-song') {
     var song = process.argv[3]
     
+    // if ( song = " ") {
+    //     return console.log("\nYou need to input a song!\n")
+    // }
+
     spotify.search({ type: 'track', query: song, limit: 1 }, function(err, data) {
         if (err) {
         return console.log('Error occurred: ' + err);
         }
     
-    console.log ( "Artist: " + data.tracks.items[0].artists[0].name +
+    console.log ( "Artist: " + data.tracks.items[0].artists.name +
         "\nSong: " + data.tracks.items[0].name +
         "\nPreview: " + data.tracks.items[0].preview_url +
         "\nAlbum: " + data.tracks.items[0].album.name ); 
     })
 
+}
+
+// OMDB
+
+if (process.argv[2] === 'movie-this') {
+    var movie = process.argv[3]
+
+    // if ( movie = " ") {
+    //     return console.log("\nYou need to input a movie!\n")
+    // }
+
+    var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=40e9cece";
+    
+    request(queryUrl, function(error, response, body) {
+    
+        if (!error && response.statusCode === 200) {
+            console.log("Title: " + JSON.parse(body).Title +
+            "\nYear: " + JSON.parse(body).Year +
+            "\nIMDB Rating: " + JSON.parse(body).imdbRating +
+            "\nRotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value +
+            "\nCountry of Production: " + JSON.parse(body).Country +
+            "\nLanguages: " + JSON.parse(body).Language +
+            "\nPlot: " + JSON.parse(body).Plot +
+            "\nActors: " + JSON.parse(body).Actors );
+
+        }
+    });
 }
